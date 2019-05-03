@@ -21,7 +21,9 @@ public class Livro {
 	}
 
 	public void setTitulo(String titulo) {
-		
+		if (titulo == "" | titulo == null) {
+			throw new RuntimeException("Titulo invalido");
+		}
 		this.titulo = titulo;
 	}
 

@@ -3,36 +3,27 @@ package com.fatec.scel;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.fatec.scel.model.Livro;
 
 public class UC01CadastrarLivro {
-	@Test
-	public void CT01CadastrarLivroComDadosValidos() {
-		try {
-			// cenario
-			Livro umLivro = new Livro();
-			// acao
-			umLivro.setIsbn("121212");
-			umLivro.setTitulo("Engenharia de Softwar");
-			umLivro.setAutor("Pressman");
-		} catch (RuntimeException e) {
-			// verificacao
-			fail("nao deve falhar");
-		}
+	static Livro umLivro = new Livro();
+	@BeforeClass
+	static public void setup() {
+		umLivro.setIsbn("121212");
+		umLivro.setTitulo("Engenharia de Software");
+		umLivro.setAutor("Pressman");
 	}
+	
 
 	@Test
 	public void CT02cadastrarLivroComISBN_em_branco() {
-		// cenario
-		Livro livro = new Livro();
 
-		livro.setTitulo("Engenharia de Software");
-		livro.setAutor("Pressman");
 		try {
 			// acao
-			livro.setIsbn("");
+			umLivro.setIsbn("");
 			fail("deveria lançar uma exceção");
 		} catch (RuntimeException e) {
 			// verificacao
@@ -41,14 +32,10 @@ public class UC01CadastrarLivro {
 	}
 	@Test
 	public void CT03cadastrarLivroComISBN_nulo() {
-		// cenario
-		Livro livro = new Livro();
-
-		livro.setTitulo("Engenharia de Software");
-		livro.setAutor("Pressman");
+	
 		try {
 			// acao
-			livro.setIsbn(null);
+			umLivro.setIsbn(null);
 			fail("deveria lançar uma exceção");
 		} catch (RuntimeException e) {
 			// verificacao
@@ -56,19 +43,14 @@ public class UC01CadastrarLivro {
 		}
 	}
 	@Test
-	public void CT04cadastrarLivroCom_obtem_ISBN() {
-		// cenario
-		Livro umLivro = new Livro();
-		try {
-			// acao
-			umLivro.setIsbn("121212");
-			umLivro.setTitulo("Engenharia de Softwar");
-			umLivro.setAutor("Pressman");
-		} catch (RuntimeException e) {
-			// verificacao
-			fail("nao deve falhar");
-		}
+	public void CT04cadastrarLivro_obtem_ISBN() {
+		
 		assertEquals("121212", umLivro.getIsbn());
 		
+	}
+	@Test
+	public void CT05Verifica_obtem_titulo() {
+		
+		assertEquals ("Engenharia de Software",umLivro.getTitulo() );
 	}
 }
